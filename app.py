@@ -353,7 +353,7 @@ if uploaded_files:
     for idx, (col, uploaded_file) in enumerate(zip(cols, uploaded_files)):
         image = Image.open(uploaded_file)
         images.append(image)
-        col.image(image, caption=f"Image {idx + 1}", use_column_width=True)
+        col.image(image, caption=f"Image {idx + 1}", width="stretch")
 
     if st.button("Initialize Spatial Analysis"):
         with st.spinner("Analyzing spatial geometry across {} image(s)...".format(len(images))):
@@ -374,7 +374,7 @@ if uploaded_files:
             st.markdown("### Detected Spatial Elements")
             det_cols = st.columns(len(all_yolo_plots))
             for idx, (col, plot) in enumerate(zip(det_cols, all_yolo_plots)):
-                col.image(plot, caption=f"Detection {idx + 1}", use_column_width=True)
+                col.image(plot, caption=f"Detection {idx + 1}", width="stretch")
 
             # Merge or use single image results
             if len(all_results_data) == 1:
@@ -387,7 +387,7 @@ if uploaded_files:
             st.caption("Green = Open space | Amber = Moderate | Red = Overcrowded")
             main_image = images[0]
             heatmap_img = generate_heatmap(main_image, final_metrics, main_image.size[0], main_image.size[1])
-            st.image(heatmap_img, caption="Zone Density Heatmap", use_column_width=True)
+            st.image(heatmap_img, caption="Zone Density Heatmap", width="stretch")
 
             # Show metrics dashboard
             coverage = final_metrics.get("total_coverage_pct", 0)
