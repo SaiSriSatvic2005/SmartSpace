@@ -1,0 +1,11 @@
+streamlit
+ultralytics
+Pillow
+ctransformers
+langchain-community
+langchain
+faiss-cpu
+sentence-transformers
+PyPDF2
+numpy
+requests
