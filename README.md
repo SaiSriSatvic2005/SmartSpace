@@ -5,7 +5,7 @@ colorTo: indigo
 sdk: docker
 pinned: false
 license: mit
-short_description: Privacy-first interior layout analysis using CV, spatial math, and RAG.
+short_description: Privacy-first layout analysis using CV, spatial math, RAG.
 ---
 
 # SmartSpace Studio
