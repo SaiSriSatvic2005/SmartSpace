@@ -4,6 +4,7 @@ Pillow
 ctransformers
 langchain-community
 langchain
+langchain-text-splitters
 faiss-cpu
 sentence-transformers
 PyPDF2
