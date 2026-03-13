@@ -49,7 +49,29 @@ style_pref = st.sidebar.selectbox("Style", ["Minimalist", "Cozy", "Modern", "Fun
 priority = st.sidebar.selectbox("Priority", ["Better Sleep", "More Workspace", "Entertainment Area", "General Flow", "Storage"])
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Knowledge Base")
-st.sidebar.info("Drop interior design PDFs into the `knowledge/` folder and restart the app to enhance AI suggestions.")
+st.sidebar.info("Upload interior design PDFs below, then click Rebuild RAG Knowledge Base.")
+
+kb_uploads = st.sidebar.file_uploader(
+    "Upload Knowledge PDFs",
+    type=["pdf"],
+    accept_multiple_files=True,
+    key="knowledge_pdf_uploader"
+)
+
+if kb_uploads:
+    os.makedirs(logic.KNOWLEDGE_DIR, exist_ok=True)
+    saved_count = 0
+    for pdf_file in kb_uploads:
+        target_path = os.path.join(logic.KNOWLEDGE_DIR, pdf_file.name)
+        with open(target_path, "wb") as f:
+            f.write(pdf_file.getbuffer())
+        saved_count += 1
+    st.sidebar.success(f"Saved {saved_count} PDF file(s) to knowledge folder.")
+
+if st.sidebar.button("Rebuild RAG Knowledge Base"):
+    with st.spinner("Rebuilding RAG index from built-in rules and uploaded PDFs..."):
+        pdf_total = logic.reload_knowledge_base()
+    st.sidebar.success(f"RAG knowledge base rebuilt with {pdf_total} PDF file(s).")
 
 # 4. Global Download Utility
 def download_model_if_missing(model_name, url):

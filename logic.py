@@ -114,6 +114,16 @@ print("Knowledge base ready!")
 print("")
 
 
+def reload_knowledge_base():
+    """Rebuild the global vector DB after new PDFs are uploaded."""
+    global db
+    print("Rebuilding RAG Knowledge Base...")
+    db = load_knowledge_base()
+    pdf_count = len(glob.glob(os.path.join(KNOWLEDGE_DIR, '*.pdf'))) if os.path.exists(KNOWLEDGE_DIR) else 0
+    print("RAG Knowledge Base rebuilt.")
+    return pdf_count
+
+
 # ==========================================
 # SPACE EFFICIENCY SCORING
 # ==========================================
